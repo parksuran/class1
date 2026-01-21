@@ -1,0 +1,295 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex:   <http://example.org/kindergarten-lesson#> .
+
+#################################################################
+# Ontology
+#################################################################
+
+ex:LessonOntology a owl:Ontology ;
+  rdfs:label "유치원 그림책 수업계획 온톨로지(가네 9사태 기반)"@ko .
+
+#################################################################
+# Classes
+#################################################################
+
+ex:LessonPlan a owl:Class ; rdfs:label "수업계획안"@ko .
+ex:Book a owl:Class ; rdfs:label "그림책"@ko .
+ex:Publisher a owl:Class ; rdfs:label "출판사"@ko .
+ex:AgeGroup a owl:Class ; rdfs:label "연령집단"@ko .
+ex:LearningDomain a owl:Class ; rdfs:label "누리과정 영역"@ko .
+ex:LearningObjective a owl:Class ; rdfs:label "학습목표"@ko .
+
+ex:InstructionalEvent a owl:Class ; rdfs:label "수업사태(가네)"@ko .
+ex:GagneNineEvent a owl:Class ;
+  rdfs:subClassOf ex:InstructionalEvent ;
+  rdfs:label "가네의 9가지 수업사태"@ko .
+
+ex:Activity a owl:Class ; rdfs:label "활동"@ko .
+ex:PlayBasedActivity a owl:Class ;
+  rdfs:subClassOf ex:Activity ;
+  rdfs:label "놀이중심 활동"@ko .
+
+ex:Material a owl:Class ; rdfs:label "자료"@ko .
+ex:QuestionPrompt a owl:Class ; rdfs:label "발문"@ko .
+
+#################################################################
+# Object Properties
+#################################################################
+
+ex:usesBook a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range ex:Book ;
+  rdfs:label "그림책을 활용한다"@ko .
+
+ex:hasPublisher a owl:ObjectProperty ;
+  rdfs:domain ex:Book ; rdfs:range ex:Publisher ;
+  rdfs:label "출판사"@ko .
+
+ex:targetsAgeGroup a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range ex:AgeGroup ;
+  rdfs:label "대상 연령"@ko .
+
+ex:hasDomain a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range ex:LearningDomain ;
+  rdfs:label "관련 누리과정 영역"@ko .
+
+ex:hasObjective a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range ex:LearningObjective ;
+  rdfs:label "학습목표"@ko .
+
+ex:hasEvent a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range ex:InstructionalEvent ;
+  rdfs:label "수업사태 포함"@ko .
+
+ex:nextEvent a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ; rdfs:range ex:InstructionalEvent ;
+  rdfs:label "다음 수업사태"@ko .
+
+ex:hasActivity a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ; rdfs:range ex:Activity ;
+  rdfs:label "사태-활동 연결"@ko .
+
+ex:usesMaterial a owl:ObjectProperty ;
+  rdfs:domain ex:Activity ; rdfs:range ex:Material ;
+  rdfs:label "활동 자료"@ko .
+
+ex:hasPrompt a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ; rdfs:range ex:QuestionPrompt ;
+  rdfs:label "발문 포함"@ko .
+
+#################################################################
+# Datatype Properties
+#################################################################
+
+ex:title a owl:DatatypeProperty ;
+  rdfs:domain owl:Thing ; rdfs:range xsd:string ;
+  rdfs:label "제목"@ko .
+
+ex:theme a owl:DatatypeProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range xsd:string ;
+  rdfs:label "주제"@ko .
+
+ex:coreIdea a owl:DatatypeProperty ;
+  rdfs:domain ex:LessonPlan ; rdfs:range xsd:string ;
+  rdfs:label "핵심 개념"@ko .
+
+ex:description a owl:DatatypeProperty ;
+  rdfs:domain owl:Thing ; rdfs:range xsd:string ;
+  rdfs:label "설명"@ko .
+
+ex:order a owl:DatatypeProperty , owl:FunctionalProperty ;
+  rdfs:domain ex:InstructionalEvent ; rdfs:range xsd:integer ;
+  rdfs:label "순서"@ko .
+
+#################################################################
+# Individuals: Book / Publisher / AgeGroup / Domains / Objectives
+#################################################################
+
+ex:Pub_SigongJunior a ex:Publisher ;
+  rdfs:label "시공주니어"@ko .
+
+ex:Book_RainbowFish a ex:Book ;
+  rdfs:label "무지개물고기"@ko ;
+  ex:hasPublisher ex:Pub_SigongJunior .
+
+ex:Age5 a ex:AgeGroup ;
+  rdfs:label "만 5세"@ko .
+
+ex:Domain_Social a ex:LearningDomain ;
+  rdfs:label "사회관계(더불어 생활하기)"@ko .
+
+ex:Domain_Communication a ex:LearningDomain ;
+  rdfs:label "의사소통(듣기·말하기)"@ko .
+
+ex:Domain_Art a ex:LearningDomain ;
+  rdfs:label "예술경험(느낌과 생각 표현하기)"@ko .
+
+ex:Obj_SharingEmpathy a ex:LearningObjective ;
+  rdfs:label "나눔이 관계를 좋게 함을 이해하고 말로 표현한다"@ko .
+
+ex:Obj_RespectPeers a ex:LearningObjective ;
+  rdfs:label "친구와 자료를 나누고 서로의 표현을 존중한다"@ko .
+
+#################################################################
+# LessonPlan Instance
+#################################################################
+
+ex:LP_RainbowFish_Sharing a ex:LessonPlan ;
+  rdfs:label "무지개물고기: 함께 나누는 기쁨을 알아요"@ko ;
+  ex:theme "나눔과 공감, 친구와의 관계"@ko ;
+  ex:coreIdea "혼자보다 함께할 때 더 행복해요"@ko ;
+  ex:usesBook ex:Book_RainbowFish ;
+  ex:targetsAgeGroup ex:Age5 ;
+  ex:hasDomain ex:Domain_Social, ex:Domain_Communication, ex:Domain_Art ;
+  ex:hasObjective ex:Obj_SharingEmpathy, ex:Obj_RespectPeers ;
+  ex:hasEvent
+    ex:E1_Attention,
+    ex:E2_Objectives,
+    ex:E3_Recall,
+    ex:E4_Stimulus,
+    ex:E5_Guidance,
+    ex:E6_Performance,
+    ex:E7_Feedback,
+    ex:E8_Assessment,
+    ex:E9_Transfer .
+
+#################################################################
+# Gagné 9 Events (Individuals) + Sequencing
+#################################################################
+
+ex:E1_Attention a ex:GagneNineEvent ;
+  rdfs:label "1. 주의 획득"@ko ;
+  ex:order 1 ;
+  ex:description "반짝이 비늘(은박지/스티커)로 호기심 유도"@ko ;
+  ex:nextEvent ex:E2_Objectives .
+
+ex:E2_Objectives a ex:GagneNineEvent ;
+  rdfs:label "2. 학습 목표 제시"@ko ;
+  ex:order 2 ;
+  ex:description "친구와 나누는 마음(나눔)을 함께 생각해 본다"@ko ;
+  ex:nextEvent ex:E3_Recall .
+
+ex:E3_Recall a ex:GagneNineEvent ;
+  rdfs:label "3. 선수학습 회상 촉진"@ko ;
+  ex:order 3 ;
+  ex:description "나눠 준 경험/받은 경험과 그때 기분을 떠올린다"@ko ;
+  ex:nextEvent ex:E4_Stimulus .
+
+ex:E4_Stimulus a ex:GagneNineEvent ;
+  rdfs:label "4. 자극 제시"@ko ;
+  ex:order 4 ;
+  ex:description "그림책 읽어주기로 이야기와 장면을 제시한다"@ko ;
+  ex:nextEvent ex:E5_Guidance .
+
+ex:E5_Guidance a ex:GagneNineEvent ;
+  rdfs:label "5. 학습 안내 제공"@ko ;
+  ex:order 5 ;
+  ex:description "발문으로 인물 마음과 변화(관계)를 이해하도록 돕는다"@ko ;
+  ex:nextEvent ex:E6_Performance .
+
+ex:E6_Performance a ex:GagneNineEvent ;
+  rdfs:label "6. 수행 유도"@ko ;
+  ex:order 6 ;
+  ex:description "‘나눔 무지개물고기’ 만들기(비늘 나누기) 놀이"@ko ;
+  ex:nextEvent ex:E7_Feedback .
+
+ex:E7_Feedback a ex:GagneNineEvent ;
+  rdfs:label "7. 피드백 제공"@ko ;
+  ex:order 7 ;
+  ex:description "나눔 행동과 협력 태도를 과정 중심으로 강화한다"@ko ;
+  ex:nextEvent ex:E8_Assessment .
+
+ex:E8_Assessment a ex:GagneNineEvent ;
+  rdfs:label "8. 수행 평가"@ko ;
+  ex:order 8 ;
+  ex:description "관찰로 나눔/표현/존중 태도를 확인한다"@ko ;
+  ex:nextEvent ex:E9_Transfer .
+
+ex:E9_Transfer a ex:GagneNineEvent ;
+  rdfs:label "9. 파지 및 전이 증진"@ko ;
+  ex:order 9 ;
+  ex:description "교실 생활 속 나눔 실천으로 확장(나눔상자/도와주기)"@ko .
+
+#################################################################
+# Materials
+#################################################################
+
+ex:Mat_GlitterScales a ex:Material ;
+  rdfs:label "반짝이 비늘 재료(은박지/반짝이 스티커)"@ko .
+
+ex:Mat_Book_RainbowFish a ex:Material ;
+  rdfs:label "그림책(무지개물고기)"@ko .
+
+ex:Mat_FishTemplate a ex:Material ;
+  rdfs:label "물고기 도안(활동지)"@ko .
+
+ex:Mat_ArtTools a ex:Material ;
+  rdfs:label "미술도구(색연필/크레파스/풀 등)"@ko .
+
+#################################################################
+# Prompts (Questions)
+#################################################################
+
+ex:Q1 a ex:QuestionPrompt ;
+  rdfs:label "이 물고기는 왜 반짝일까요?"@ko .
+
+ex:Q2 a ex:QuestionPrompt ;
+  rdfs:label "예쁜 걸 혼자만 가지고 싶을까요?"@ko .
+
+ex:Q3 a ex:QuestionPrompt ;
+  rdfs:label "무지개물고기는 왜 처음에 친구가 없었을까요?"@ko .
+
+ex:Q4 a ex:QuestionPrompt ;
+  rdfs:label "비늘을 나누고 나서 무엇이 달라졌나요?"@ko .
+
+ex:Q5 a ex:QuestionPrompt ;
+  rdfs:label "우리 교실에서 나눌 수 있는 것은 뭐가 있을까요?"@ko .
+
+ex:Q6 a ex:QuestionPrompt ;
+  rdfs:label "내일 친구에게 해주고 싶은 나눔은 무엇인가요?"@ko .
+
+#################################################################
+# Activities
+#################################################################
+
+ex:A1_AttentionDemo a ex:PlayBasedActivity ;
+  rdfs:label "반짝이 비늘 관찰·예상 놀이"@ko ;
+  ex:description "비늘 재료를 보고 이유를 추측하며 말해본다"@ko ;
+  ex:usesMaterial ex:Mat_GlitterScales .
+
+ex:A2_ReadAloud a ex:Activity ;
+  rdfs:label "그림책 읽어주기"@ko ;
+  ex:description "장면 관찰과 표정/감정에 주목하며 낭독"@ko ;
+  ex:usesMaterial ex:Mat_Book_RainbowFish .
+
+ex:A3_SharingCraft a ex:PlayBasedActivity ;
+  rdfs:label "‘나눔 무지개물고기’ 만들기"@ko ;
+  ex:description "비늘 스티커를 붙이고 일부를 친구에게 나누며 완성"@ko ;
+  ex:usesMaterial ex:Mat_FishTemplate, ex:Mat_GlitterScales, ex:Mat_ArtTools .
+
+ex:A4_SharingRoutine a ex:PlayBasedActivity ;
+  rdfs:label "나눔 실천 확장 놀이(나눔상자/도와주기)"@ko ;
+  ex:description "자유놀이·일상에서 나눔 행동을 선택하고 실천한다"@ko .
+
+#################################################################
+# Link Events -> Activities & Prompts
+#################################################################
+
+ex:E1_Attention
+  ex:hasActivity ex:A1_AttentionDemo ;
+  ex:hasPrompt ex:Q1, ex:Q2 .
+
+ex:E4_Stimulus
+  ex:hasActivity ex:A2_ReadAloud .
+
+ex:E5_Guidance
+  ex:hasPrompt ex:Q3, ex:Q4 .
+
+ex:E6_Performance
+  ex:hasActivity ex:A3_SharingCraft .
+
+ex:E9_Transfer
+  ex:hasActivity ex:A4_SharingRoutine ;
+  ex:hasPrompt ex:Q5, ex:Q6 .
