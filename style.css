@@ -1,0 +1,284 @@
+:root {
+    --primary-color: #F4C430; /* Dandelion Yellow */
+    --primary-light: #FFEB99;
+    --accent-green: #8DA399; /* Sage Green */
+    --text-dark: #2C3E50;
+    --text-light: #5D6D7E;
+    --bg-color: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --shadow-sm: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 15px rgba(0,0,0,0.1);
+    --font-heading: 'Gaegu', cursive; /* Playful yet readable */
+    --font-body: 'Noto Sans KR', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Background Decoration */
+.background-decor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 10% 20%, rgba(244, 196, 48, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(141, 163, 153, 0.1) 0%, transparent 20%);
+}
+
+/* Header */
+.hero-section {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(to bottom, #fff, var(--bg-color));
+    margin-bottom: 2rem;
+}
+
+.badge {
+    display: inline-block;
+    background-color: var(--accent-green);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.core-idea {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    font-weight: 700;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-light);
+}
+
+.core-idea .icon {
+    font-size: 1.2rem;
+}
+
+/* Timeline/Container */
+.timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+    position: relative;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #E0E0E0;
+    z-index: -1;
+}
+
+/* Event Cards */
+.event-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.event-number {
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 4px solid var(--bg-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.event-content h2 {
+    text-align: center;
+    font-family: var(--font-heading);
+    color: var(--text-dark);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.description {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Inner Boxes (Activities, Prompts) */
+.activity-box {
+    background-color: #FFFDF0; /* Very light yellow */
+    border-left: 4px solid var(--primary-color);
+    padding: 1.2rem;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 1rem;
+}
+
+.activity-box h3 {
+    font-size: 1.1rem;
+    color: #B7950B;
+    margin-bottom: 0.5rem;
+}
+
+.prompt-box {
+    background-color: #F0F4F2; /* Very light green */
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-top: 1rem;
+}
+
+.prompt-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    background-color: var(--accent-green);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.prompt-box p {
+    font-style: italic;
+    color: #445544;
+    margin-bottom: 0.3rem;
+}
+
+.objective-box {
+    text-align: center;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    padding: 1rem;
+    background: rgba(244, 196, 48, 0.1);
+    border-radius: 12px;
+}
+
+.tip-box {
+    background-color: #E8F8F5;
+    color: #16A085;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.check-list {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.check-list li::before {
+    content: "✔️";
+    margin-right: 0.5rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0; /* default hidden to animate in */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: #999;
+    font-size: 0.8rem;
+    padding-bottom: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .event-card {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .timeline-line {
+        left: 20px;
+        transform: none;
+    }
+
+    .event-number {
+        left: 20px;
+        transform: none;
+    }
+
+    .event-content {
+        padding-left: 2rem;
+    }
+    
+    .timeline-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
