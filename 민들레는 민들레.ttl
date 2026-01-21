@@ -1,0 +1,306 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix ex:   <http://example.org/kindergarten-lesson#> .
+
+#################################################################
+# Ontology
+#################################################################
+
+ex:LessonOntology a owl:Ontology ;
+  rdfs:label "유치원 그림책 수업계획 온톨로지(가네 9사태 기반)"@ko .
+
+#################################################################
+# Classes (RDFS/OWL)
+#################################################################
+
+ex:LessonPlan a owl:Class ;
+  rdfs:label "수업계획안"@ko .
+
+ex:Book a owl:Class ;
+  rdfs:label "그림책"@ko .
+
+ex:AgeGroup a owl:Class ;
+  rdfs:label "연령집단"@ko .
+
+ex:LearningDomain a owl:Class ;
+  rdfs:label "누리과정 영역"@ko .
+
+ex:LearningObjective a owl:Class ;
+  rdfs:label "학습목표"@ko .
+
+ex:InstructionalEvent a owl:Class ;
+  rdfs:label "수업사태(가네)"@ko .
+
+ex:GagneNineEvent a owl:Class ;
+  rdfs:subClassOf ex:InstructionalEvent ;
+  rdfs:label "가네의 9가지 수업사태"@ko .
+
+ex:Activity a owl:Class ;
+  rdfs:label "활동"@ko .
+
+ex:PlayBasedActivity a owl:Class ;
+  rdfs:subClassOf ex:Activity ;
+  rdfs:label "놀이중심 활동"@ko .
+
+ex:QuestionPrompt a owl:Class ;
+  rdfs:label "발문"@ko .
+
+ex:Material a owl:Class ;
+  rdfs:label "자료"@ko .
+
+#################################################################
+# Object Properties (with domain/range)
+#################################################################
+
+ex:usesBook a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  ex:Book ;
+  rdfs:label "그림책을 활용한다"@ko .
+
+ex:targetsAgeGroup a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  ex:AgeGroup ;
+  rdfs:label "대상 연령"@ko .
+
+ex:hasDomain a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  ex:LearningDomain ;
+  rdfs:label "관련 누리과정 영역"@ko .
+
+ex:hasObjective a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  ex:LearningObjective ;
+  rdfs:label "학습목표"@ko .
+
+ex:hasEvent a owl:ObjectProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  ex:InstructionalEvent ;
+  rdfs:label "수업사태 포함"@ko .
+
+ex:nextEvent a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ;
+  rdfs:range  ex:InstructionalEvent ;
+  rdfs:label "다음 수업사태"@ko .
+
+ex:hasActivity a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ;
+  rdfs:range  ex:Activity ;
+  rdfs:label "사태-활동 연결"@ko .
+
+ex:usesMaterial a owl:ObjectProperty ;
+  rdfs:domain ex:Activity ;
+  rdfs:range  ex:Material ;
+  rdfs:label "활동 자료"@ko .
+
+ex:hasPrompt a owl:ObjectProperty ;
+  rdfs:domain ex:InstructionalEvent ;
+  rdfs:range  ex:QuestionPrompt ;
+  rdfs:label "발문 포함"@ko .
+
+#################################################################
+# Datatype Properties
+#################################################################
+
+ex:title a owl:DatatypeProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  xsd:string ;
+  rdfs:label "수업명"@ko .
+
+ex:theme a owl:DatatypeProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  xsd:string ;
+  rdfs:label "주제"@ko .
+
+ex:coreIdea a owl:DatatypeProperty ;
+  rdfs:domain ex:LessonPlan ;
+  rdfs:range  xsd:string ;
+  rdfs:label "핵심 개념"@ko .
+
+ex:description a owl:DatatypeProperty ;
+  rdfs:domain owl:Thing ;
+  rdfs:range  xsd:string ;
+  rdfs:label "설명"@ko .
+
+ex:order a owl:DatatypeProperty , owl:FunctionalProperty ;
+  rdfs:domain ex:InstructionalEvent ;
+  rdfs:range  xsd:integer ;
+  rdfs:label "순서"@ko .
+
+#################################################################
+# Individuals (Lesson plan instance)
+#################################################################
+
+# Book
+ex:Book_Dandelion a ex:Book ;
+  rdfs:label "민들레는 민들레"@ko ;
+  ex:description "글 장상성, 그림 오현경"@ko .
+
+# Age group
+ex:Age5 a ex:AgeGroup ;
+  rdfs:label "만 5세"@ko .
+
+# Domains (누리과정)
+ex:Domain_Communication a ex:LearningDomain ;
+  rdfs:label "의사소통(듣기·말하기)"@ko .
+
+ex:Domain_Social a ex:LearningDomain ;
+  rdfs:label "사회관계(나를 알고 존중하기)"@ko .
+
+ex:Domain_Art a ex:LearningDomain ;
+  rdfs:label "예술경험(생각·느낌 표현하기)"@ko .
+
+# Objectives
+ex:Obj_IdentityValue a ex:LearningObjective ;
+  rdfs:label "나는 나답게 소중함을 이해하고 말·그림으로 표현한다"@ko .
+
+ex:Obj_RespectDifference a ex:LearningObjective ;
+  rdfs:label "친구의 다른 표현을 존중하며 듣고 반응한다"@ko .
+
+# Lesson Plan
+ex:LP_DandelionIsDandelion a ex:LessonPlan ;
+  ex:title "민들레는 민들레: 있는 그대로의 나를 이해해요"@ko ;
+  ex:theme "존재의 고유성, 다름의 존중"@ko ;
+  ex:coreIdea "나는 나답게 소중하다"@ko ;
+  ex:usesBook ex:Book_Dandelion ;
+  ex:targetsAgeGroup ex:Age5 ;
+  ex:hasDomain ex:Domain_Communication, ex:Domain_Social, ex:Domain_Art ;
+  ex:hasObjective ex:Obj_IdentityValue, ex:Obj_RespectDifference ;
+  ex:hasEvent
+    ex:E1_Attention,
+    ex:E2_Objectives,
+    ex:E3_Recall,
+    ex:E4_Stimulus,
+    ex:E5_Guidance,
+    ex:E6_Performance,
+    ex:E7_Feedback,
+    ex:E8_Assessment,
+    ex:E9_Transfer .
+
+#################################################################
+# Gagné 9 Events (Individuals) + sequencing
+#################################################################
+
+ex:E1_Attention a ex:GagneNineEvent ;
+  rdfs:label "1. 주의 획득"@ko ;
+  ex:order 1 ;
+  ex:description "민들레/장미/해바라기 사진 비교로 흥미 유도"@ko ;
+  ex:nextEvent ex:E2_Objectives .
+
+ex:E2_Objectives a ex:GagneNineEvent ;
+  rdfs:label "2. 학습 목표 제시"@ko ;
+  ex:order 2 ;
+  ex:description "오늘은 '나는 나답게 소중하다'를 알아본다"@ko ;
+  ex:nextEvent ex:E3_Recall .
+
+ex:E3_Recall a ex:GagneNineEvent ;
+  rdfs:label "3. 선수학습 회상 촉진"@ko ;
+  ex:order 3 ;
+  ex:description "민들레를 본 경험, 잡초라는 말 등 기존 경험 연결"@ko ;
+  ex:nextEvent ex:E4_Stimulus .
+
+ex:E4_Stimulus a ex:GagneNineEvent ;
+  rdfs:label "4. 자극 제시"@ko ;
+  ex:order 4 ;
+  ex:description "그림책을 읽어주며 장면 관찰과 감정 이해를 돕는다"@ko ;
+  ex:nextEvent ex:E5_Guidance .
+
+ex:E5_Guidance a ex:GagneNineEvent ;
+  rdfs:label "5. 학습 안내 제공"@ko ;
+  ex:order 5 ;
+  ex:description "발문으로 의미 해석을 돕고 생각의 방향을 안내"@ko ;
+  ex:nextEvent ex:E6_Performance .
+
+ex:E6_Performance a ex:GagneNineEvent ;
+  rdfs:label "6. 수행 유도"@ko ;
+  ex:order 6 ;
+  ex:description "‘나는 ○○인 내가 좋아요’ 민들레 도안 표현 놀이"@ko ;
+  ex:nextEvent ex:E7_Feedback .
+
+ex:E7_Feedback a ex:GagneNineEvent ;
+  rdfs:label "7. 피드백 제공"@ko ;
+  ex:order 7 ;
+  ex:description "비교·평가 없이 표현과 노력을 인정하는 언어적 강화"@ko ;
+  ex:nextEvent ex:E8_Assessment .
+
+ex:E8_Assessment a ex:GagneNineEvent ;
+  rdfs:label "8. 수행 평가"@ko ;
+  ex:order 8 ;
+  ex:description "관찰 중심(표현 여부, 존중 태도)으로 목표 도달 확인"@ko ;
+  ex:nextEvent ex:E9_Transfer .
+
+ex:E9_Transfer a ex:GagneNineEvent ;
+  rdfs:label "9. 파지 및 전이 증진"@ko ;
+  ex:order 9 ;
+  ex:description "일상에서 ‘다름 존중’으로 확장(친구 칭찬/자기소개 놀이)"@ko .
+
+#################################################################
+# Activities, Materials, Prompts (linked to events)
+#################################################################
+
+# Materials
+ex:Mat_FlowerPhotos a ex:Material ;
+  rdfs:label "꽃 사진(민들레/장미/해바라기)"@ko .
+
+ex:Mat_Book a ex:Material ;
+  rdfs:label "그림책 실물(민들레는 민들레)"@ko .
+
+ex:Mat_DandelionTemplate a ex:Material ;
+  rdfs:label "민들레 도안(표현 활동지)"@ko .
+
+ex:Mat_Stickers a ex:Material ;
+  rdfs:label "스티커/색연필/크레파스"@ko .
+
+# Prompts (발문)
+ex:Q1 a ex:QuestionPrompt ;
+  rdfs:label "이 꽃들은 닮았나요, 달라요?"@ko .
+
+ex:Q2 a ex:QuestionPrompt ;
+  rdfs:label "민들레는 어떤 꽃 같아요?"@ko .
+
+ex:Q3 a ex:QuestionPrompt ;
+  rdfs:label "민들레는 왜 다른 꽃이 되고 싶었을까요?"@ko .
+
+ex:Q4 a ex:QuestionPrompt ;
+  rdfs:label "민들레가 민들레로 남았을 때 어떤 기분이었을까요?"@ko .
+
+ex:Q5 a ex:QuestionPrompt ;
+  rdfs:label "우리 반에도 민들레 같은 친구가 있을까요?"@ko .
+
+ex:Q6 a ex:QuestionPrompt ;
+  rdfs:label "다른 친구와 달라도 괜찮을까요?"@ko .
+
+# Activities
+ex:A1_PhotoCompare a ex:PlayBasedActivity ;
+  rdfs:label "사진 비교 관찰 놀이"@ko ;
+  ex:description "꽃 사진을 보고 공통점/차이점을 말해본다"@ko ;
+  ex:usesMaterial ex:Mat_FlowerPhotos .
+
+ex:A2_ReadAloud a ex:Activity ;
+  rdfs:label "그림책 읽어주기"@ko ;
+  ex:description "그림을 충분히 보여주며 천천히 낭독"@ko ;
+  ex:usesMaterial ex:Mat_Book .
+
+ex:A3_DandelionSelf a ex:PlayBasedActivity ;
+  rdfs:label "‘나만의 민들레’ 표현 놀이"@ko ;
+  ex:description "도안에 내가 좋아하는 것/잘하는 것/나만의 모습을 표현"@ko ;
+  ex:usesMaterial ex:Mat_DandelionTemplate, ex:Mat_Stickers .
+
+ex:A4_ComplimentPlay a ex:PlayBasedActivity ;
+  rdfs:label "친구 칭찬·다름 존중 확장 놀이"@ko ;
+  ex:description "친구의 표현을 듣고 존중하는 말로 반응"@ko .
+
+# Link events to activities and prompts
+ex:E1_Attention ex:hasActivity ex:A1_PhotoCompare ;
+  ex:hasPrompt ex:Q1, ex:Q2 .
+
+ex:E4_Stimulus ex:hasActivity ex:A2_ReadAloud .
+
+ex:E5_Guidance ex:hasPrompt ex:Q3, ex:Q4 .
+
+ex:E6_Performance ex:hasActivity ex:A3_DandelionSelf .
+
+ex:E9_Transfer ex:hasActivity ex:A4_ComplimentPlay ;
+  ex:hasPrompt ex:Q5, ex:Q6 .
